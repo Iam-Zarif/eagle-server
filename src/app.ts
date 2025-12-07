@@ -5,7 +5,7 @@ import routes from "./routes";
 
 const app = express();
 
-const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3001";
+const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3001" || "https://eagle-3d-streaming.web.app";
 
 app.use(
   cors({
