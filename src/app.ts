@@ -9,8 +9,7 @@ const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3001" || "htt
 
 app.use(
   cors({
-    origin: FRONTEND_URL, 
-    credentials: true,   
+    origin: FRONTEND_URL,    
   })
 );
 app.get("/", (req, res) => {
