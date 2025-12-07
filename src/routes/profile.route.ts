@@ -38,12 +38,14 @@ profileRouter.get("/", async (req, res) => {
     return res.status(500).json({ status: "error", message: "Server error" });
   }
 });
+
 profileRouter.post("/logout", (req, res) => {
   try {
     res.clearCookie("eagle-hashed-cookie", {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      secure: true,
+      sameSite: "none", 
+      path: "/",        
     });
 
     return res
@@ -54,6 +56,7 @@ profileRouter.post("/logout", (req, res) => {
     return res.status(500).json({ status: "error", message: "Server error" });
   }
 });
+
 
 
 export default profileRouter;

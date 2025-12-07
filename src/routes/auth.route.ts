@@ -41,12 +41,12 @@ userRouter.post("/", async (req, res) => {
     );
     console.log("JWT generated:", token);
 
-  res.cookie("eagle-hashed-cookie", token, {
-  httpOnly: true,          // Protects cookie from JS access
-  secure: true,            // Must be true for HTTPS (production and Vercel)
-  sameSite: "none",        // Required for cross-origin cookies
-  maxAge: JWT_EXPIRES,     // Cookie expiry in ms
-});
+    res.cookie("eagle-hashed-cookie", token, {
+      httpOnly: true, 
+      secure: true, 
+      sameSite: "none", 
+      maxAge: JWT_EXPIRES,
+    });
 
     console.log("Cookie set with JWT");
 
@@ -58,8 +58,5 @@ userRouter.post("/", async (req, res) => {
     return res.status(500).json({ status: "error", message: "Server error" });
   }
 });
-
-
-
 
 export default userRouter;

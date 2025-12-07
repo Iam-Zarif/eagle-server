@@ -16,7 +16,9 @@ router.get("/", async (req, res) => {
 router.post("/", async (req, res) => {
   const { isValid, errors } = validateProduct(req.body);
   if (!isValid) {
-    return res.status(400).json({ status: "error", message: "Validation failed", errors });
+    return res
+      .status(400)
+      .json({ status: "error", message: "Validation failed", errors });
   }
 
   const newProduct = await addProduct(req.body);
@@ -26,12 +28,16 @@ router.post("/", async (req, res) => {
 router.put("/", async (req, res) => {
   const { id } = req.query;
   if (!id || typeof id !== "string") {
-    return res.status(400).json({ status: "error", message: "Product id is required" });
+    return res
+      .status(400)
+      .json({ status: "error", message: "Product id is required" });
   }
 
   const { isValid, errors } = validateProduct(req.body);
   if (!isValid) {
-    return res.status(400).json({ status: "error", message: "Validation failed", errors });
+    return res
+      .status(400)
+      .json({ status: "error", message: "Validation failed", errors });
   }
 
   try {
@@ -39,7 +45,9 @@ router.put("/", async (req, res) => {
     const doc = await docRef.get();
 
     if (!doc.exists) {
-      return res.status(404).json({ status: "error", message: "Product not found" });
+      return res
+        .status(404)
+        .json({ status: "error", message: "Product not found" });
     }
 
     await docRef.update({
@@ -47,7 +55,7 @@ router.put("/", async (req, res) => {
       updatedAt: Date.now(),
     });
 
-    const updatedProduct = { id, ...doc.data(), ...req.body }; 
+    const updatedProduct = { id, ...doc.data(), ...req.body };
     res.json({ status: "success", product: updatedProduct });
   } catch (err) {
     console.error(err);
@@ -55,11 +63,12 @@ router.put("/", async (req, res) => {
   }
 });
 
-
 router.delete("/", async (req, res) => {
   const { id } = req.query;
   if (!id || typeof id !== "string") {
-    return res.status(400).json({ status: "error", message: "Product id is required" });
+    return res
+      .status(400)
+      .json({ status: "error", message: "Product id is required" });
   }
 
   try {
@@ -67,7 +76,9 @@ router.delete("/", async (req, res) => {
     const doc = await docRef.get();
 
     if (!doc.exists) {
-      return res.status(404).json({ status: "error", message: "Product not found" });
+      return res
+        .status(404)
+        .json({ status: "error", message: "Product not found" });
     }
 
     await docRef.delete();
@@ -78,4 +89,4 @@ router.delete("/", async (req, res) => {
   }
 });
 
-export default router;  
+export default router;
