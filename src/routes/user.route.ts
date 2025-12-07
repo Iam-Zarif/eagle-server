@@ -41,12 +41,13 @@ userRouter.post("/", async (req, res) => {
     );
     console.log("JWT generated:", token);
 
-    res.cookie("eagle-hashed-cookie", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
-      maxAge: JWT_EXPIRES,
-    });
+  res.cookie("eagle-hashed-cookie", token, {
+  httpOnly: true,          // Protects cookie from JS access
+  secure: true,            // Must be true for HTTPS (production and Vercel)
+  sameSite: "none",        // Required for cross-origin cookies
+  maxAge: JWT_EXPIRES,     // Cookie expiry in ms
+});
+
     console.log("Cookie set with JWT");
 
     return res
